@@ -149,6 +149,7 @@ button{font:inherit;color:inherit}
 .todo{background:var(--todo-bg);color:var(--todo-fg);padding:2px 8px;font-size:.86em;white-space:nowrap;
   border-radius:2px;font-weight:400;letter-spacing:0}
 .todo-block{padding:22px 24px;background:var(--todo-bg);color:var(--todo-fg);font-size:15px;max-width:68ch}
+.menu-open .preview-banner{display:none}
 .preview-banner{position:fixed;left:16px;bottom:16px;z-index:60;max-width:380px;padding:12px 16px;font-size:13px;
   line-height:1.45;background:#1b1b1b;color:#fff;box-shadow:0 8px 30px rgba(0,0,0,.25)}
 
@@ -200,6 +201,8 @@ body{letter-spacing:-.005em}
 .hd.is-solid .hd-top{height:0;opacity:0;border-color:transparent}
 .hd.is-solid .hd-main .wrap{height:72px}
 .hd.is-solid .logo img{height:38px}
+/* размытие фона ограничивает полноэкранное меню размерами шапки — на время открытого меню отключается */
+.menu-open .hd{-webkit-backdrop-filter:none;backdrop-filter:none;background:var(--g900)}
 @media (max-width:1100px){
   .hd-main .wrap{height:76px}.logo img{height:38px}
   .nav{background:var(--g900)}

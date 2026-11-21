@@ -151,6 +151,7 @@ button{font:inherit;color:inherit}
 .todo{background:var(--todo-bg);color:var(--todo-fg);padding:2px 8px;font-size:.86em;white-space:nowrap;
   border-radius:2px;font-weight:400;letter-spacing:0}
 .todo-block{padding:22px 24px;background:var(--todo-bg);color:var(--todo-fg);font-size:15px;max-width:68ch}
+.menu-open .preview-banner{display:none}
 .preview-banner{position:fixed;left:16px;bottom:16px;z-index:60;max-width:380px;padding:12px 16px;font-size:13px;
   line-height:1.45;background:#1b1b1b;color:#fff;box-shadow:0 8px 30px rgba(0,0,0,.25)}
 
@@ -221,10 +222,16 @@ h1,h2,h3{font-family:var(--serif)}
 .link:hover{color:var(--ink)}
 
 /* ---------- первый экран */
-.hero{position:relative;overflow:hidden;padding:clamp(64px,7vw,120px) 0 clamp(56px,6vw,88px)}
-.art,.ph-art{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;object-position:right center;pointer-events:none}
+/* первый экран (главная и внутренние) — ровно во всю высоту окна под шапкой; узор плавно растворяется книзу */
+:root{--hd-h:142px}
+.hero{position:relative;overflow:hidden;display:flex;flex-direction:column;min-height:max(600px,calc(100vh - var(--hd-h)));
+  min-height:max(600px,calc(100svh - var(--hd-h)));padding:clamp(48px,7vh,112px) 0 clamp(48px,7vh,88px)}
+.hero>.wrap{flex:1;display:flex;flex-direction:column}
+.hero .hero-row{margin-top:auto}
+.art,.ph-art{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;object-position:right center;pointer-events:none;
+  -webkit-mask-image:linear-gradient(180deg,#000 55%,transparent 97%);mask-image:linear-gradient(180deg,#000 55%,transparent 97%)}
 .hero .wrap,.ph .wrap{position:relative}
-.hero h1{font-size:clamp(42px,6vw,96px);line-height:1.02;font-weight:400;letter-spacing:-.025em;max-width:11.5ch;
+.hero h1{font-size:clamp(40px,min(6vw,8.6vh),96px);margin-bottom:clamp(40px,6vh,80px);line-height:1.02;font-weight:400;letter-spacing:-.025em;max-width:11.5ch;
   font-variation-settings:"opsz" 60}
 .hero-row{display:grid;grid-template-columns:minmax(0,7fr) minmax(0,5fr);gap:clamp(32px,5vw,88px);align-items:end;
   margin-top:clamp(48px,6vw,88px);padding-top:32px;border-top:1px solid var(--ink)}
@@ -273,7 +280,9 @@ h1,h2,h3{font-family:var(--serif)}
 .contacts--stack>div>*:not(h3){grid-column:2}
 
 /* ---------- внутренние страницы: заголовок */
-.ph{position:relative;overflow:hidden;padding:clamp(56px,6vw,96px) 0 clamp(48px,5vw,72px);border-bottom:1px solid var(--line)}
+.ph{position:relative;overflow:hidden;display:flex;flex-direction:column;justify-content:flex-end;
+  min-height:max(560px,calc(100vh - var(--hd-h)));min-height:max(560px,calc(100svh - var(--hd-h)));
+  padding:clamp(56px,6vw,96px) 0 clamp(48px,7vh,88px);border-bottom:1px solid var(--line)}
 .ph-lead{max-width:48ch!important}
 .crumbs{display:flex;flex-wrap:wrap;gap:10px;font-size:13px;color:var(--muted);margin-bottom:clamp(32px,4vw,56px)}
 .crumbs li+li::before{content:"—";margin-right:10px;color:var(--line-2)}
@@ -332,9 +341,11 @@ h1,h2,h3{font-family:var(--serif)}
 @media (max-width:900px){
   .hero-row{grid-template-columns:1fr}
   .hero .actions{justify-content:flex-start}
+  :root{--hd-h:81px}
   .hero{padding-bottom:calc(56vw + 40px)}
-  .hero .art{top:auto;height:62vw;object-position:70% bottom}
-  .ph .ph-art{display:none}
+  .ph{justify-content:flex-start;padding-bottom:calc(56vw + 40px)}
+  .hero .art,.ph .ph-art{top:auto;height:62vw;object-position:70% bottom;
+    -webkit-mask-image:linear-gradient(180deg,transparent 0,#000 30%,#000 60%,transparent 100%);mask-image:linear-gradient(180deg,transparent 0,#000 30%,#000 60%,transparent 100%)}
   .split{grid-template-columns:1fr}
   .cols2{grid-template-columns:1fr;gap:16px}
   .stages li{grid-template-columns:1fr;gap:8px;padding:28px 0}
